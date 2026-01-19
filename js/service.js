@@ -156,57 +156,63 @@ class ServiceManager {
     
     // ===== HIỂN THỊ DỊCH VỤ =====
     renderServices() {
-        const servicesGrid = document.getElementById('servicesGrid');
-        if (!servicesGrid) return;
-        
-        const services = servicesData.services || {};
-        
-        if (Object.keys(services).length === 0) {
-            servicesGrid.innerHTML = '';
-            return;
-        }
-        
+    const servicesGrid = document.getElementById('servicesGrid');
+    if (!servicesGrid) return;
+    
+    const services = servicesData.services || {};
+    
+    if (Object.keys(services).length === 0) {
         servicesGrid.innerHTML = '';
-        
-        Object.entries(services).forEach(([id, item]) => {
-            const imageUrl = item.images && item.images.length > 0 
-                ? item.images[0] 
-                : 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=500';
-            
-            const features = item.features || [];
-            const displayFeatures = features.slice(0, 3);
-            
-            const card = document.createElement('div');
-            card.className = 'service-card';
-            card.setAttribute('data-service', id);
-            
-            card.innerHTML = `
-                <div class="service-image">
-                    <img src="${imageUrl}" alt="${item.title}" loading="lazy">
-                </div>
-                <h3 class="service-name">${item.title || 'Dịch vụ'}</h3>
-                <div class="service-experience">
-                    ${displayFeatures.length > 0 
-                        ? displayFeatures.map(feature => `
-                            <div class="experience-item">
-                                <i class="fas fa-check"></i> <span>${feature}</span>
-                            </div>
-                        `).join('')
-                        : `
-                            <div class="experience-item"><i class="fas fa-check"></i> <span>Chất lượng cao cấp</span></div>
-                            <div class="experience-item"><i class="fas fa-check"></i> <span>Đúng giờ 100%</span></div>
-                            <div class="experience-item"><i class="fas fa-check"></i> <span>Tài xế chuyên nghiệp</span></div>
-                        `
-                    }
-                </div>
-                <a href="service/${id}" class="btn-view-details">
-                    Xem chi tiết
-                </a>
-            `;
-            
-            servicesGrid.appendChild(card);
-        });
+        return;
     }
+    
+    // Hàm tạo link
+    const getLink = (id) => {
+        // Luôn dùng absolute path từ root
+        return `/cana/service/${id}/`;
+    };
+    
+    servicesGrid.innerHTML = '';
+    
+    Object.entries(services).forEach(([id, item]) => {
+        const imageUrl = item.images && item.images.length > 0 
+            ? item.images[0] 
+            : 'https://images.unsplash.com/photo-1544620347-c4fd4a3d5957?auto=format&fit=crop&w=500';
+        
+        const features = item.features || [];
+        const displayFeatures = features.slice(0, 3);
+        
+        const card = document.createElement('div');
+        card.className = 'service-card';
+        card.setAttribute('data-service', id);
+        
+        card.innerHTML = `
+            <div class="service-image">
+                <img src="${imageUrl}" alt="${item.title}" loading="lazy">
+            </div>
+            <h3 class="service-name">${item.title || 'Dịch vụ'}</h3>
+            <div class="service-experience">
+                ${displayFeatures.length > 0 
+                    ? displayFeatures.map(feature => `
+                        <div class="experience-item">
+                            <i class="fas fa-check"></i> <span>${feature}</span>
+                        </div>
+                    `).join('')
+                    : `
+                        <div class="experience-item"><i class="fas fa-check"></i> <span>Chất lượng cao cấp</span></div>
+                        <div class="experience-item"><i class="fas fa-check"></i> <span>Đúng giờ 100%</span></div>
+                        <div class="experience-item"><i class="fas fa-check"></i> <span>Tài xế chuyên nghiệp</span></div>
+                    `
+                }
+            </div>
+            <a href="${getLink(id)}" class="btn-view-details">
+                <i class="fas fa-arrow-right"></i> Xem chi tiết
+            </a>
+        `;
+        
+        servicesGrid.appendChild(card);
+    });
+}
     
     // ===== HIỂN THỊ TRANG CHI TIẾT DỊCH VỤ =====
     renderServiceDetailPage() {
@@ -512,4 +518,3 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 console.log('✅ Service Manager loaded');
-
