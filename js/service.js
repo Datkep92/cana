@@ -199,7 +199,7 @@ class ServiceManager {
                         `
                     }
                 </div>
-                <a href="cana/service/${id}" class="btn-view-details">
+                <a href="service/${id}" class="btn-view-details">
                     Xem chi tiết
                 </a>
             `;
@@ -512,3 +512,4 @@ document.addEventListener('DOMContentLoaded', function() {
 });
 
 console.log('✅ Service Manager loaded');
+
