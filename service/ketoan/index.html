@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=5.0, viewport-fit=cover">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" 
+          integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" 
+          crossorigin="anonymous" referrerpolicy="no-referrer">
+    
+    <link rel="stylesheet" href="/css/style.css">
+    <link rel="stylesheet" href="/css/chatbot.css">
+    <link rel="stylesheet" href="/css/blog.css">
+    <link rel="stylesheet" href="/css/experience.css">
+    <link rel="stylesheet" href="/css/gallery-card.css">
+    <link rel="stylesheet" href="/css/service.css">
+    <link rel="stylesheet" href="/css/pricing.css">
+    <link rel="stylesheet" href="/css/sidebar.css">
+</head>
+
+<body itemscope itemtype="https://schema.org/WebPage">
+
+    <header class="app-header" role="banner">
+        <div class="header-content container">
+            <div class="logo" itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
+                <a href="/" title="Trang chủ CANA Tax" style="text-decoration: none; display: flex; align-items: center; gap: 10px;">
+                    <meta itemprop="name" content="CANA Tax">
+                    <div class="logo-icon">
+                        <img src="https://raw.githubusercontent.com/Datkep92/hoangtung/main/images/htu_vuong512notext.jpg" 
+                             alt="CANA Tax Logo" 
+                             width="50" 
+                             height="50"
+                             itemprop="logo">
+                    </div>
+                    <div class="logo-text">CANA<span>Tax</span></div>
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <main>
+        <section id="galleryContainer" aria-label="GPKD"></section>
+
+        
+
+        <section id="booking" aria-label="Đặt xe nhanh"></section>
+
+        <section class="blog-section" id="blog" aria-labelledby="blogTitle">
+            <div class="container">
+                <div class="section-header">
+                    <h2 id="blogTitle" class="section-title">Tin Tức & Kinh Nghiệm Du Lịch</h2>
+                    <p class="section-description">Cập nhật thông tin du lịch, mẹo đặt xe và đánh giá dịch vụ.</p>
+                </div>
+                <div class="blog-horizontal-container">
+                    <div class="blog-horizontal-row" id="blogRow">
+                        </div>
+                </div>
+                <div class="blog-cta">
+                    <a href="blog.html" class="btn btn-outline" aria-label="Xem tất cả bài viết blog">
+                        <i class="fas fa-book-open" aria-hidden="true"></i> Xem tất cả bài viết
+                    </a>
+                </div>
+            </div>
+        </section>
+
+        <section class="pricing-section" id="pricing" aria-labelledby="pricingTitleMain">
+            <div class="container">
+                <div id="pricingSection">
+                    <div class="loading-pricing" aria-live="polite">
+                        <i class="fas fa-spinner fa-spin" aria-hidden="true"></i>
+                        <p>Đang tải bảng giá ưu đãi...</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </main>
+
+    <div id="nav"></div>
+    <div id="footer-container"></div>
+
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-app-compat.js" defer></script>
+    <script src="https://www.gstatic.com/firebasejs/9.6.10/firebase-database-compat.js" defer></script>
+    <script src="/js/benefits.js"></script>
+    <script src="/js/hero-cta.js" defer></script>
+    <script src="/js/service.js" defer></script>
+    <script src="/js/blog.js" defer></script>
+    <script src="/js/pricing.js" defer></script>
+    <script src="/js/booking-telegram.js" defer></script>
+    <script src="/js/mobile-nav.js" defer></script>
+    <script src="/js/sidebar.js" defer></script>
+    <script src="/js/chatbot.js" defer></script>
+    <script src="/js/footer-standalone.js" defer></script>
+    <script src="/service/ketoan/ketoan.js"></script>
+</body>
+</html>
