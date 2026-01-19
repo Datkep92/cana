@@ -7,7 +7,8 @@ document.addEventListener("DOMContentLoaded", function () {
     navContainer.innerHTML = `
     <nav class="bottom-tab-bar" role="navigation" aria-label="Menu di động KHtax">
         <div class="tab-items">
-            <a href="/" class="tab-item">
+            <div class="tab-items">
+            <a href="/cana/" class="tab-item">
                 <div class="tab-icon"><i class="fas fa-home"></i></div>
                 <div class="tab-label">Trang chủ</div>
             </a>
@@ -104,4 +105,5 @@ document.addEventListener("DOMContentLoaded", function () {
 
     window.addEventListener("scroll", updateActiveTab);
     updateActiveTab();
+
 });
