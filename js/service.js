@@ -199,7 +199,7 @@ class ServiceManager {
                         `
                     }
                 </div>
-                <a href="/service/${id}" class="btn-view-details">
+                <a href="cana/service/${id}" class="btn-view-details">
                     Xem chi tiết
                 </a>
             `;
