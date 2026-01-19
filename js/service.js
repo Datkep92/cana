@@ -206,7 +206,7 @@ class ServiceManager {
                 }
             </div>
             <a href="${getLink(id)}" class="btn-view-details">
-                <i class="fas fa-arrow-right"></i> Xem chi tiết
+                </i> Xem chi tiết
             </a>
         `;
         
