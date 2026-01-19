@@ -25,14 +25,14 @@ async function initGallery() {
     try {
         if (!firebase.apps.length) {
             firebase.initializeApp({
-                apiKey: "AIzaSyCeYPoizbE-Op79186r7pmndGpJ-JfESAk",
-                authDomain: "hoangtung-af982.firebaseapp.com",
-                databaseURL: "https://hoangtung-af982-default-rtdb.firebaseio.com",
-                projectId: "hoangtung-af982",
-                storageBucket: "hoangtung-af982.firebasestorage.app",
-                messagingSenderId: "232719624914",
-                appId: "1:232719624914:web:cac7ce833ae105d9255b0b",
-                measurementId: "G-FWHFP1W032"
+                  apiKey: "AIzaSyD-fCFDfgSVXiNdwyAm0kO32BxfPPTDswc",
+  authDomain: "cana-6633e.firebaseapp.com",
+  databaseURL: "https://cana-6633e-default-rtdb.firebaseio.com",
+  projectId: "cana-6633e",
+  storageBucket: "cana-6633e.firebasestorage.app",
+  messagingSenderId: "123685281829",
+  appId: "1:123685281829:web:7eeb47c7260a2136455fcc",
+  measurementId: "G-4XYG3YEW1W"
             });
         }
         galleryDatabase = firebase.database();
