@@ -7,11 +7,10 @@ document.addEventListener("DOMContentLoaded", function () {
     navContainer.innerHTML = `
     <nav class="bottom-tab-bar" role="navigation" aria-label="Menu di động KHtax">
         <div class="tab-items">
-            <div class="tab-items">
             <a href="/cana/" class="tab-item">
-                <div class="tab-icon"><i class="fas fa-home"></i></div>
-                <div class="tab-label">Trang chủ</div>
-            </a>
+    <div class="tab-icon"><i class="fas fa-home"></i></div>
+    <div class="tab-label">Trang chủ</div>
+</a>
             <a href="#services" class="tab-item">
                 <div class="tab-icon"><i class="fas fa-calculator"></i></div>
                 <div class="tab-label">Dịch vụ</div>
@@ -50,11 +49,13 @@ document.addEventListener("DOMContentLoaded", function () {
                     behavior: "smooth"
                 });
             } else {
-                // Nếu không có, chuyển hướng tới trang dịch vụ
-                window.location.href = "/service";
-            }
-        });
-    }
+            // Nếu không có, chuyển hướng tới trang dịch vụ
+            // THÊM /cana/ cho GitHub Pages
+            const basePath = window.location.hostname.includes('github.io') ? '/cana/' : '/';
+            window.location.href = basePath + "service/";
+        }
+    });
+}
 
     // Map tab href tới section (loại bỏ tab trang chủ vì nó là link tới URL)
     const tabSections = {};
@@ -105,5 +106,4 @@ document.addEventListener("DOMContentLoaded", function () {
 
     window.addEventListener("scroll", updateActiveTab);
     updateActiveTab();
-
 });
