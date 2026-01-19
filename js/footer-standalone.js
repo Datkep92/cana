@@ -1,28 +1,27 @@
-// footer-standalone.js - HOÀN TOÀN ĐỘC LẬP CHO KHtax
+// footer-standalone.js - HOÀN TOÀN ĐỘC LẬP
 // Tạo footer chân trang động, chỉ cần include file này
 
 class StandaloneFooter {
     constructor(options = {}) {
         this.options = {
-            companyName: 'KHtax - Dịch Vụ Thuế & Kế Toán',
-            phoneNumber: '0933.414.148',
-            email: 'info@khtax.vn',
-            address: 'Phan Rang - Tháp Chàm, Ninh Thuận',
-            address2: 'Nha Trang - Cam Ranh, Khánh Hòa',
-            address3: 'Khu vực Miền Trung & Tây Nguyên',
+            companyName: 'CANA Tax',
+            phoneNumber: '0567033888',
+            email: 'cskh@canatax.com',
+            address: '62 Hải Thượng Lãn Ông, Phan Rang, Khánh Hòa',
+            address2: '76 Nguyễn Tất Thành, Nha Trang, Khánh Hòa',
+            address3: '29 Ngô Quyền, Đà Lạt, Lâm Đồng',
             copyrightYear: new Date().getFullYear(),
             designer: 'Datkep92',
             socialLinks: {
-                facebook: 'https://facebook.com/khtax.vn',
-                zalo: 'https://zalo.me/0933414148',
-                email: 'mailto:info@khtax.vn',
-                phone: 'tel:0933414148'
+                facebook: 'https://facebook.com/canatax.com',
+                zalo: 'https://zalo.me/0567033888',
+                email: 'mailto:cskh@canatax.com',
+                phone: 'tel:0567033888'
             },
             quickLinks: [
-                { text: 'Dịch vụ thuế trọn gói', url: '#services', icon: 'fas fa-file-invoice-dollar' },
-                { text: 'Thành lập doanh nghiệp', url: '#services', icon: 'fas fa-building' },
-                { text: 'Báo cáo tài chính', url: '#services', icon: 'fas fa-chart-line' },
-                { text: 'Tư vấn thuế TNCN/TNDN', url: '#services', icon: 'fas fa-user-tie' }
+                { text: 'Admin Panel', url: 'admin.html', icon: 'fas fa-cog' },
+                { text: 'Chính sách bảo mật', url: 'privacy-policy.html', icon: 'fas fa-shield-alt' },
+                { text: 'Điều khoản dịch vụ', url: 'terms-of-service.html', icon: 'fas fa-file-contract' }
             ],
             ...options
         };
@@ -31,7 +30,7 @@ class StandaloneFooter {
         this.injectFooterCSS();
         this.bindContactAnchor();
 
-        console.log('🚀 KHtax Footer initialized');
+        console.log('🚀 Standalone Footer initialized');
     }
 
     createFooter() {
@@ -41,20 +40,23 @@ class StandaloneFooter {
             <footer class="standalone-footer" 
                     id="contact"
                     role="contentinfo"
-                    aria-label="Liên hệ KHtax">
+                    aria-label="Liên hệ">
                 <div class="standalone-footer-container">
 
                     <div class="standalone-footer-top">
                         <div class="standalone-footer-section" itemscope itemtype="https://schema.org/Organization">
                             <div class="logo" itemprop="publisher" itemscope itemtype="https://schema.org/Organization">
-                                <meta itemprop="name" content="KHtax">
-                                <div class="logo-icon">
-                                    <i class="fas fa-file-invoice-dollar"></i>
-                                </div>
-                                <div class="logo-text">KH<span>tax</span></div>
-                            </div>
+            <meta itemprop="name" content="CANATex">
+            <div class="logo-icon">
+                <img src="https://raw.githubusercontent.com/Datkep92/hoangtung/main/images/htu_vuong512notext.jpg" 
+                     alt="CANA Tax Logo" 
+                     width="50" 
+                     height="50">
+            </div>
+            <div class="logo-text">CANA<span>Tax</span></div>
+        </div>
                             <p class="standalone-footer-desc">
-                                Dịch vụ tư vấn thuế, kế toán, giấy phép doanh nghiệp chuyên nghiệp tại Phan Rang - Khánh Hòa
+                                Đơn vị vận tải hành khách hàng đầu khu vực miền Trung - Tây Nguyên
                             </p>
                             <div class="standalone-social-links">
                                 ${this.renderSocialLinks()}
@@ -62,64 +64,47 @@ class StandaloneFooter {
                         </div>
 
                         <div class="standalone-footer-section">
-                            <h4 class="standalone-footer-heading">Thông Tin Liên Hệ</h4>
+                            <h4 class="standalone-footer-heading">Liên Hệ</h4>
                             <div class="standalone-contact-info">
                                 <p><i class="fas fa-phone-alt"></i>
                                     <a href="tel:${this.options.phoneNumber}">
                                         ${this.formatPhone(this.options.phoneNumber)}
                                     </a>
                                 </p>
+                                <p><i class="fas fa-map-marker-alt"></i>${this.options.address}</p>
+                                <p><i class="fas fa-map-marker-alt"></i>${this.options.address2}</p>
+                                <p><i class="fas fa-map-marker-alt"></i>${this.options.address3}</p>
+                                <p><i class="fas fa-clock"></i>Hoạt động 24/7</p>
                                 <p><i class="fas fa-envelope"></i>
                                     <a href="mailto:${this.options.email}">
                                         ${this.options.email}
                                     </a>
                                 </p>
-                                <p><i class="fas fa-map-marker-alt"></i>${this.options.address}</p>
-                                <p><i class="fas fa-map-marker-alt"></i>${this.options.address2}</p>
-                                <p><i class="fas fa-map-marker-alt"></i>${this.options.address3}</p>
-                                <p><i class="fas fa-clock"></i>Hỗ trợ: 8:00 - 18:00 (Thứ 2 - Thứ 7)</p>
-                                <p><i class="fas fa-calendar-check"></i>Tư vấn miễn phí 15 phút</p>
                             </div>
                         </div>
 
                         <div class="standalone-footer-section">
-                            <h4 class="standalone-footer-heading">Dịch Vụ Chính</h4>
+                            <h4 class="standalone-footer-heading">Hệ Thống</h4>
                             <ul class="standalone-footer-links">
                                 ${this.renderQuickLinks()}
                             </ul>
                         </div>
 
-                        <div class="standalone-footer-section">
-                            <h4 class="standalone-footer-heading">Đăng Ký Tư Vấn</h4>
-                            <p class="consultation-cta">
-                                Để lại thông tin, chúng tôi sẽ liên hệ tư vấn miễn phí trong 15 phút
-                            </p>
-                            <a href="#booking" class="consultation-btn" onclick="if(window.bookingSystem) window.bookingSystem.scrollToBooking(); return false;">
-                                <i class="fas fa-edit"></i> Đăng Ký Ngay
-                            </a>
-                        </div>
+                        
                     </div>
 
                     <div class="standalone-footer-divider">
                         <div class="divider-line"></div>
-                        <div class="divider-icon"><i class="fas fa-file-invoice-dollar"></i></div>
+                        <div class="divider-icon"><i class="fas fa-car"></i></div>
                         <div class="divider-line"></div>
                     </div>
 
                     <div class="standalone-footer-bottom">
                         <div class="standalone-copyright">
-                            <p>© ${this.options.copyrightYear} <strong>${this.options.companyName}</strong>. Bảo lưu mọi quyền.</p>
-                            <p class="standalone-copyright-note">
-                                Giấy chứng nhận đăng ký kinh doanh số: 4202034567<br>
-                                Mã số thuế: 0123456789
-                            </p>
+                            <p>© ${this.options.copyrightYear} ${this.options.companyName}</p>
                             <p class="standalone-copyright-note">
                                 Thiết kế bởi ${this.options.designer}
                             </p>
-                        </div>
-                        <div class="certification-badges">
-                            <span class="cert-badge"><i class="fas fa-shield-alt"></i> Bảo mật thông tin</span>
-                            <span class="cert-badge"><i class="fas fa-user-tie"></i> Kế toán trưởng chứng chỉ</span>
                         </div>
                     </div>
 
@@ -128,6 +113,60 @@ class StandaloneFooter {
         `;
 
         document.body.insertAdjacentHTML('beforeend', footerHTML);
+    }
+
+    bindContactAnchor() {
+        document.addEventListener('click', (e) => {
+            const link = e.target.closest('a[href="#contact"]');
+            if (!link) return;
+
+            e.preventDefault();
+
+            const tryScroll = () => {
+                const footer = document.getElementById('contact');
+                if (footer) {
+                    footer.scrollIntoView({
+                        behavior: 'smooth',
+                        block: 'start'
+                    });
+                    return true;
+                }
+                return false;
+            };
+
+            if (!tryScroll()) {
+                let count = 0;
+                const timer = setInterval(() => {
+                    if (tryScroll() || ++count > 20) {
+                        clearInterval(timer);
+                    }
+                }, 100);
+            }
+        });
+    }
+
+    renderSocialLinks() {
+        const s = this.options.socialLinks;
+        return `
+            <a href="${s.facebook}" target="_blank"><i class="fab fa-facebook-f"></i></a>
+            <a href="${s.zalo}" target="_blank"><span class="standalone-zalo-icon">Z</span></a>
+            <a href="${s.email}"><i class="fas fa-envelope"></i></a>
+            <a href="${s.phone}"><i class="fas fa-phone-alt"></i></a>
+        `;
+    }
+
+    renderQuickLinks() {
+        return this.options.quickLinks.map(l => `
+            <li>
+                <a href="${l.url}">
+                    <i class="${l.icon}"></i> ${l.text}
+                </a>
+            </li>
+        `).join('');
+    }
+
+    formatPhone(p) {
+        return p.replace(/(\d{4})(\d{3})(\d{3})/, '$1.$2.$3');
     }
 
     injectFooterCSS() {
@@ -863,66 +902,11 @@ class StandaloneFooter {
         style.textContent = css;
         document.head.appendChild(style);
     }
-
-    bindContactAnchor() {
-        document.addEventListener('click', (e) => {
-            const link = e.target.closest('a[href="#contact"]');
-            if (!link) return;
-
-            e.preventDefault();
-
-            const tryScroll = () => {
-                const footer = document.getElementById('contact');
-                if (footer) {
-                    footer.scrollIntoView({
-                        behavior: 'smooth',
-                        block: 'start'
-                    });
-                    return true;
-                }
-                return false;
-            };
-
-            if (!tryScroll()) {
-                let count = 0;
-                const timer = setInterval(() => {
-                    if (tryScroll() || ++count > 20) {
-                        clearInterval(timer);
-                    }
-                }, 100);
-            }
-        });
-    }
-
-    renderSocialLinks() {
-        const s = this.options.socialLinks;
-        return `
-            <a href="${s.facebook}" target="_blank" aria-label="Facebook KHtax"><i class="fab fa-facebook-f"></i></a>
-            <a href="${s.zalo}" target="_blank" aria-label="Zalo KHtax"><span class="standalone-zalo-icon">Z</span></a>
-            <a href="${s.email}" aria-label="Email KHtax"><i class="fas fa-envelope"></i></a>
-            <a href="${s.phone}" aria-label="Gọi điện cho KHtax"><i class="fas fa-phone-alt"></i></a>
-        `;
-    }
-
-    renderQuickLinks() {
-        return this.options.quickLinks.map(l => `
-            <li>
-                <a href="${l.url}">
-                    <i class="${l.icon}"></i> ${l.text}
-                </a>
-            </li>
-        `).join('');
-    }
-
-    formatPhone(p) {
-        return p.replace(/(\d{4})(\d{3})(\d{3})/, '$1.$2.$3');
-    }
-
 }
 
 document.addEventListener('DOMContentLoaded', () => {
     new StandaloneFooter({
-        companyName: 'KHtax - Dịch Vụ Thuế & Kế Toán',
+        companyName: 'CANATex',
         designer: 'Datkep92'
     });
 });

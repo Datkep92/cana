@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 <!-- ẢNH -->
                 <div class="hero-image">
                     <img 
-                        src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=900" 
+                        src="https://i.ibb.co/x8mK2QRC/b6f4177a-0371-49f2-bb57-2c15ffd8f5c4.jpg" 
                         alt="Dịch vụ kế toán trọn gói cho HKD và doanh nghiệp"
                         loading="lazy"
                     />

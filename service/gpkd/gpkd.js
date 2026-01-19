@@ -32,7 +32,7 @@ document.addEventListener("DOMContentLoaded", function () {
         <!-- ẢNH -->
         <div class="hero-image">
           <img 
-            src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?q=80&w=900" 
+            src="https://i.ibb.co/HfyWDhzs/737e74b5-469d-4293-a1ed-8ddd502f7fca.jpg" 
             alt="Dịch vụ giấy phép kinh doanh"
             loading="lazy"
           />
