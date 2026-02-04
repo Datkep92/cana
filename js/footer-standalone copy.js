@@ -5,7 +5,7 @@ class StandaloneFooter {
     constructor(options = {}) {
         this.options = {
             companyName: 'CANA Tax',
-            phoneNumber: '0395995035',
+            phoneNumber: '0567033888',
             email: 'cskh@canatax.com',
             address: '62 Hải Thượng Lãn Ông, Phan Rang, Khánh Hòa',
             address2: '76 Nguyễn Tất Thành, Nha Trang, Khánh Hòa',

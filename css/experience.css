@@ -113,21 +113,7 @@
     flex: 1;
 }
 
-.benefit-item {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-    margin-bottom: 12px;
-    padding: 10px;
-    background: rgba(255, 255, 255, 0.05);
-    border-radius: 8px;
-    transition: all 0.3s ease;
-}
 
-.experience-card:hover .benefit-item {
-    background: rgba(212, 175, 55, 0.1);
-    border-color: rgba(212, 175, 55, 0.2);
-}
 
 .benefit-item i {
     color: var(--champagne);
@@ -222,11 +208,7 @@
     padding: 10px;            /* thu padding */
 }
 
-.benefit-item {
-    padding: 6px;
-    margin-bottom: 6px;
-    gap: 6px;
-}
+
 
 .benefit-item span {
     font-size: 12px;

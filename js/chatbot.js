@@ -81,13 +81,7 @@ class StandaloneChatButtons {
                     ${this.stats.zalo > 0 ? `<span class="chat-badge" id="zaloBadge">${this.stats.zalo}</span>` : ''}
                 </button>
                 
-                <!-- Nút WhatsApp -->
-                <button class="chat-btn whatsapp-btn" id="standaloneWhatsappBtn"
-                        aria-label="Chat WhatsApp với HTUTransport">
-                    <i class="fab fa-whatsapp" aria-hidden="true"></i>
-                    <span class="chat-tooltip">WhatsApp: ${this.formatPhone(this.phoneNumber)}</span>
-                    ${this.stats.whatsapp > 0 ? `<span class="chat-badge" id="whatsappBadge">${this.stats.whatsapp}</span>` : ''}
-                </button>
+                
             </div>
         `;
         
@@ -139,16 +133,14 @@ class StandaloneChatButtons {
             }
             
             .phone-btn {
-                background: linear-gradient(135deg, #2196F3, #1976D2);
+                background: linear-gradient(135deg, #fbe600, #6f6d11);
             }
             
             .zalo-btn {
-                background: linear-gradient(135deg, #0068FF, #0052CC);
+                background: linear-gradient(135deg, #fbe600, #6f6d11);
             }
             
-            .whatsapp-btn {
-                background: linear-gradient(135deg, #25D366, #128C7E);
-            }
+           
             
             .chat-tooltip {
                 position: absolute;

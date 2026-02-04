@@ -23,10 +23,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 <div class="tab-icon"><i class="fas fa-newspaper"></i></div>
                 <div class="tab-label">Blog</div>
             </a>
-            <a href="javascript:void(0)" class="tab-item" onclick="openFullPricingPage()" id="pricingTab">
-                <div class="tab-icon"><i class="fas fa-tag"></i></div>
-                <div class="tab-label">Bảng giá</div>
-            </a>
+           
         </div>
     </nav>
     `;

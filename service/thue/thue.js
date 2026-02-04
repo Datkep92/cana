@@ -47,39 +47,36 @@ document.addEventListener("DOMContentLoaded", function () {
 <div class="business-benefits">
     <!-- Hàng 1: 3 cột -->
     <div class="benefit-item">
-        <div class="benefit-icon-top"><i class="fas fa-money-bill-wave"></i></div>
-        <h3>Tiết kiệm tối đa chi phí</h3>
+        <h3><i class="fas fa-money-bill-wave"></i> Tiết kiệm tối đa chi phí</h3>
         <p>Chỉ từ <strong>300.000đ/tháng</strong> - rẻ hơn nhiều so với thuê kế toán toàn thời gian (15-20 triệu/năm). Không phải trả lương tháng 13, BHXH, phụ cấp.</p>
     </div>
     
     <div class="benefit-item">
-        <div class="benefit-icon-top"><i class="fas fa-gavel"></i></div>
-        <h3>Tránh rủi ro pháp lý & phạt thuế</h3>
+        <h3><i class="fas fa-gavel"></i> Tránh rủi ro pháp lý & phạt thuế</h3>
         <p>HKD dễ bị phạt vì khai sai, nộp chậm (phạt 10-50% số thuế thiếu). Chúng tôi đảm bảo <strong>đúng hạn, chính xác 100%</strong>, không lo cơ quan thuế kiểm tra.</p>
     </div>
     
     <div class="benefit-item">
-        <div class="benefit-icon-top"><i class="fas fa-clock"></i></div>
-        <h3>Tiết kiệm thời gian tập trung kinh doanh</h3>
+        <h3><i class="fas fa-clock"></i> Tiết kiệm thời gian tập trung kinh doanh</h3>
         <p>Bạn không cần mất 2-3 ngày/tháng để làm sổ sách, nộp thuế. Thời gian đó dành để <strong>chăm sóc khách hàng, phát triển cửa hàng</strong>.</p>
     </div>
     
     <!-- Hàng 2: 3 cột -->
     <div class="benefit-item">
-        <div class="benefit-icon-top"><i class="fas fa-lightbulb"></i></div>
-        <h3>Tư vấn chi phí hợp lý được trừ</h3>
+        <h3><i class="fas fa-lightbulb"></i> Tư vấn chi phí hợp lý được trừ</h3>
         <p>Giúp bạn tối ưu các khoản chi phí hợp lý (tiền điện nước, thuê mặt bằng, hao mòn tài sản...) để <strong>giảm nghĩa vụ thuế</strong> mà vẫn đúng luật.</p>
     </div>
     
     <div class="benefit-item">
-        <div class="benefit-icon-top"><i class="fas fa-file-invoice"></i></div>
+        <h3><i class="fas fa-file-invoice"></i> Quản lý hóa đơn chuyên nghiệp</h3>
+        <p>Hướng dẫn bạn cách lưu trữ hóa đơn mua vào, xuất hóa đơn bán ra đúng quy định, tránh bị phạt về hóa đơn.</p>
+    </div>
         <h3>Quản lý hóa đơn chuyên nghiệp</h3>
         <p>Hướng dẫn bạn cách lưu trữ hóa đơn mua vào, xuất hóa đơn bán ra đúng quy định, tránh bị phạt về hóa đơn.</p>
     </div>
     
     <div class="benefit-item">
-        <div class="benefit-icon-top"><i class="fas fa-headset"></i></div>
-        <h3>Hỗ trợ mọi lúc - Không giới hạn</h3>
+        <h3><i class="fas fa-headset"></i> Hỗ trợ mọi lúc - Không giới hạn</h3>
         <p>Bất kỳ thắc mắc về thuế, hóa đơn, chứng từ... đều được giải đáp ngay qua Zalo/Điện thoại. <strong>Không tính phí tư vấn thêm</strong>.</p>
     </div>
 </div>

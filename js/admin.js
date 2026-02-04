@@ -1381,122 +1381,177 @@ async function loadStatisticsConfig() {
     }
 }
 
+/* ================================
+   LƯU CẤU HÌNH THỐNG KÊ (ADMIN)
+================================ */
 async function saveStatisticsConfig(config) {
     if (!database) {
         showStatus('Không thể kết nối Firebase', 'error');
         return false;
     }
-    
+
     try {
-        await database.ref('statistics/config').set(config);
-        localStorage.setItem('luxurymove_stats_config', JSON.stringify(config));
-        
-        // Ghi log
-        await database.ref('statistics/logs/manual_updates').push({
+        await database.ref('statistics/config').set({
+            ...config,
+            updated_at: Date.now()
+        });
+
+        localStorage.setItem(
+            'htu_stats_config',
+            JSON.stringify(config)
+        );
+
+        await database.ref('statistics/logs/admin_actions').push({
             timestamp: Date.now(),
             action: 'config_update',
-            config: config
+            config
         });
-        
+
         showStatus('Đã lưu cấu hình thống kê', 'success');
         return true;
+
     } catch (error) {
-        console.error("❌ Error saving statistics config:", error);
+        console.error('❌ saveStatisticsConfig:', error);
         showStatus('Lỗi khi lưu cấu hình', 'error');
         return false;
     }
 }
 
+
+/* =========================================
+   CẬP NHẬT THỐNG KÊ THỦ CÔNG (ADMIN)
+========================================= */
 async function updateStatisticsManually(data) {
     if (!database) return false;
-    
+
     try {
         const updateData = {
             ...data,
             updated_at: Date.now(),
             source: 'manual'
         };
-        
+
         await database.ref('statistics/live').update(updateData);
-        
-        // Ghi log
-        await database.ref('statistics/logs/manual_updates').push({
+
+        await database.ref('statistics/logs/admin_actions').push({
             timestamp: Date.now(),
             action: 'manual_override',
-            data: data
+            data
         });
-        
+
         showStatus('Đã cập nhật thống kê thủ công', 'success');
         return true;
+
     } catch (error) {
-        console.error("❌ Error updating statistics manually:", error);
-        showStatus('Lỗi khi cập nhật', 'error');
+        console.error('❌ updateStatisticsManually:', error);
+        showStatus('Lỗi khi cập nhật thống kê', 'error');
         return false;
     }
 }
 
+
+/* =========================================
+   RESET THỐNG KÊ THEO NGÀY
+   (KHÔNG XÓA DATA TỔNG)
+========================================= */
 async function resetDailyStatistics() {
     if (!database) return false;
-    
+
     try {
         const today = new Date().toISOString().split('T')[0];
-        
-        // Reset bookings
-        await database.ref('statistics/live/bookings_today').set(0);
-        
-        // Update last_reset date
-        await database.ref('statistics/config/last_reset').set(today);
-        
-        // Ghi log
+
+        await database.ref('statistics/live').update({
+            gpkd_processing_today: 0,
+            tax_processing_today: 0,
+            last_reset: today
+        });
+
         await database.ref('statistics/logs/daily_resets').push({
             timestamp: Date.now(),
             date: today
         });
-        
+
         showStatus('Đã reset thống kê ngày mới', 'success');
         return true;
+
     } catch (error) {
-        console.error("❌ Error resetting daily statistics:", error);
-        showStatus('Lỗi khi reset', 'error');
+        console.error('❌ resetDailyStatistics:', error);
+        showStatus('Lỗi khi reset thống kê', 'error');
         return false;
     }
 }
 
-// Hàm lấy dữ liệu thống kê thực
+
+/* =========================================
+   LẤY THỐNG KÊ THỰC TỪ FIREBASE
+   (ONLINE + HỒ SƠ)
+========================================= */
 async function getRealStatistics() {
     if (!database) return null;
-    
+
     try {
-        // Đếm user online thực (active trong 5 phút)
         const fiveMinutesAgo = Date.now() - 5 * 60 * 1000;
-        const sessionsSnapshot = await database.ref('user_sessions').once('value');
-        const sessions = sessionsSnapshot.val() || {};
-        
-        const realOnline = Object.values(sessions).filter(session => 
-            session.last_active > fiveMinutesAgo
+
+        /* ===== ONLINE USERS ===== */
+        const sessionsSnap = await database.ref('user_sessions').once('value');
+        const sessions = sessionsSnap.val() || {};
+
+        const realOnline = Object.values(sessions).filter(s =>
+            s.last_active && s.last_active > fiveMinutesAgo
         ).length;
-        
-        // Đếm booking hôm nay
-        const today = new Date().toISOString().split('T')[0];
-        const bookingsSnapshot = await database.ref('booking_logs').once('value');
-        const bookings = bookingsSnapshot.val() || {};
-        
-        const realBookings = Object.values(bookings).filter(booking => {
-            const bookingDate = new Date(booking.timestamp).toISOString().split('T')[0];
-            return bookingDate === today && booking.status === 'confirmed';
-        }).length;
-        
+
+        /* ===== HỢP ĐỒNG KẾ TOÁN ===== */
+        const contractsSnap = await database.ref('contracts').once('value');
+        const contracts = contractsSnap.val() || {};
+
+        const totalContracts = Object.values(contracts).filter(c =>
+            c.status === 'active'
+        ).length;
+
+        /* ===== GPKD ===== */
+        const gpkdSnap = await database.ref('gpkd_records').once('value');
+        const gpkd = gpkdSnap.val() || {};
+
+        let gpkdDone = 0;
+        let gpkdProcessing = 0;
+
+        Object.values(gpkd).forEach(item => {
+            if (item.status === 'done') gpkdDone++;
+            if (item.status === 'processing') gpkdProcessing++;
+        });
+
+        /* ===== THUẾ ===== */
+        const taxSnap = await database.ref('tax_records').once('value');
+        const tax = taxSnap.val() || {};
+
+        let taxDone = 0;
+        let taxProcessing = 0;
+
+        Object.values(tax).forEach(item => {
+            if (item.status === 'done') taxDone++;
+            if (item.status === 'processing') taxProcessing++;
+        });
+
         return {
             real_online: realOnline,
-            real_bookings: realBookings,
-            total_sessions: Object.keys(sessions).length,
-            total_bookings: Object.keys(bookings).length
+
+            contracts_total: totalContracts,
+
+            gpkd_done: gpkdDone,
+            gpkd_processing: gpkdProcessing,
+
+            tax_done: taxDone,
+            tax_processing: taxProcessing,
+
+            total_sessions: Object.keys(sessions).length
         };
+
     } catch (error) {
-        console.error("❌ Error getting real statistics:", error);
+        console.error('❌ getRealStatistics:', error);
         return null;
     }
 }
+
 
 //
 // ===== TELEGRAM MANAGEMENT FUNCTIONS =====

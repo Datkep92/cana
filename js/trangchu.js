@@ -107,21 +107,7 @@ document.addEventListener("DOMContentLoaded", function () {
                     </div>
                 </div>
 
-                <!-- KHU VỰC PHỤC VỤ & CTA -->
-                <div class="service-footer">
-                    <div class="service-area">
-                        <h3><i class="fas fa-map-marker-alt"></i> Khu Vực Phục Vụ</h3>
-                        <p><strong>Phan Rang - Tháp Chàm (Ninh Thuận)</strong>, <strong>Nha Trang - Cam Ranh (Khánh Hòa)</strong> và các khu vực lân cận Miền Trung - Tây Nguyên.</p>
-                    </div>
-
-                    <div class="final-cta">
-                        <h3>Cần tư vấn về dịch vụ thuế - kế toán?</h3>
-                        <p>Chuyên gia KHtax sẽ liên hệ tư vấn miễn phí trong 15 phút</p>
-                        <a href="javascript:void(0)" onclick="if(window.bookingSystem) window.bookingSystem.scrollToBooking();" class="btn btn-primary">
-                            <i class="fas fa-calendar-check"></i> Đăng Ký Tư Vấn Ngay
-                        </a>
-                    </div>
-                </div>
+               
 
             </div>
         </article>

@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Điền thông tin vào Form Excel BHXH</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.18.5/xlsx.full.min.js"></script>
+    <style>
+        * {
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            margin: 0;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background-color: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.1);
+        }
+        
+        h1 {
+            text-align: center;
+            color: #1a73e8;
+            margin-bottom: 10px;
+        }
+        
+        .subtitle {
+            text-align: center;
+            color: #666;
+            margin-bottom: 30px;
+        }
+        
+        .upload-section, .form-section {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 20px;
+            margin-bottom: 25px;
+            background-color: #f9f9f9;
+        }
+        
+        .section-title {
+            font-size: 1.2em;
+            color: #1a73e8;
+            margin-top: 0;
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid #1a73e8;
+        }
+        
+        .form-group {
+            margin-bottom: 15px;
+        }
+        
+        label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: 600;
+            color: #444;
+        }
+        
+        input, select, textarea {
+            width: 100%;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            font-size: 16px;
+        }
+        
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            margin: 0 -10px;
+        }
+        
+        .col {
+            flex: 1;
+            padding: 0 10px;
+            min-width: 250px;
+        }
+        
+        .btn {
+            background-color: #1a73e8;
+            color: white;
+            border: none;
+            padding: 12px 25px;
+            border-radius: 5px;
+            cursor: pointer;
+            font-size: 16px;
+            font-weight: 600;
+            transition: background-color 0.3s;
+        }
+        
+        .btn:hover {
+            background-color: #0d62d9;
+        }
+        
+        .btn-upload {
+            background-color: #fbbc04;
+        }
+        
+        .btn-upload:hover {
+            background-color: #e6a800;
+        }
+        
+        .btn-export {
+            background-color: #34a853;
+        }
+        
+        .btn-export:hover {
+            background-color: #2e8b47;
+        }
+        
+        .button-group {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            margin-top: 30px;
+        }
+        
+        .file-info {
+            margin-top: 10px;
+            padding: 10px;
+            background-color: #e8f4f8;
+            border-radius: 4px;
+            border-left: 4px solid #1a73e8;
+        }
+        
+        .hidden {
+            display: none;
+        }
+        
+        .required::after {
+            content: " *";
+            color: #ea4335;
+        }
+        
+        .status-message {
+            padding: 10px;
+            border-radius: 4px;
+            margin-top: 10px;
+            text-align: center;
+        }
+        
+        .success {
+            background-color: #d4edda;
+            color: #155724;
+            border: 1px solid #c3e6cb;
+        }
+        
+        .error {
+            background-color: #f8d7da;
+            color: #721c24;
+            border: 1px solid #f5c6cb;
+        }
+        
+        .checkbox-group {
+            display: flex;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .checkbox-group input {
+            width: auto;
+            margin-right: 10px;
+        }
+        
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .col {
+                min-width: 100%;
+            }
+            
+            .button-group {
+                flex-direction: column;
+            }
+            
+            .btn {
+                width: 100%;
+                margin-bottom: 10px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>ĐIỀN THÔNG TIN VÀO FORM BHXH - BHYT</h1>
+        <p class="subtitle">Upload file Excel gốc và điền thông tin để xuất file hoàn chỉnh</p>
+        
+        <div class="upload-section">
+            <h3 class="section-title">1. Upload File Excel Gốc</h3>
+            <div class="form-group">
+                <label for="excelFile" class="required">Chọn file Excel mẫu (123.xlsx)</label>
+                <input type="file" id="excelFile" accept=".xlsx, .xls" required>
+                <small>Chỉ chấp nhận file Excel (.xlsx, .xls)</small>
+            </div>
+            <button type="button" class="btn btn-upload" id="uploadBtn">Upload File</button>
+            <div id="fileInfo" class="file-info hidden"></div>
+        </div>
+        
+        <div id="formSection" class="form-section hidden">
+            <h3 class="section-title">2. Điền Thông Tin Cá Nhân</h3>
+            
+            <div class="checkbox-group">
+                <input type="checkbox" id="hasBhxh">
+                <label for="hasBhxh">Đã có mã số BHXH (điền phần II)</label>
+            </div>
+            
+            <div id="part1">
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="fullname" class="required">[01] Họ và tên (viết hoa)</label>
+                            <input type="text" id="fullname" required>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="gender" class="required">[02] Giới tính</label>
+                            <select id="gender" required>
+                                <option value="">Chọn giới tính</option>
+                                <option value="Nam">Nam</option>
+                                <option value="Nữ">Nữ</option>
+                                <option value="Khác">Khác</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="birthdate" class="required">[03] Ngày sinh</label>
+                            <input type="date" id="birthdate" required>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="nationality" class="required">[04] Quốc tịch</label>
+                            <input type="text" id="nationality" value="Việt Nam" required>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="ethnic" class="required">[05] Dân tộc</label>
+                            <input type="text" id="ethnic" value="Kinh" required>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="idNumber" class="required">[06] Số CMND/CCCD/Hộ chiếu</label>
+                            <input type="text" id="idNumber" required>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="phone" class="required">[07] Điện thoại</label>
+                            <input type="tel" id="phone" required>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="email">[08] Email (nếu có)</label>
+                            <input type="email" id="email">
+                        </div>
+                    </div>
+                </div>
+                
+                <h4 class="section-title">[09] Nơi đăng ký khai sinh</h4>
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="birthCommune" class="required">Xã</label>
+                            <input type="text" id="birthCommune" required>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="birthDistrict" class="required">Huyện</label>
+                            <input type="text" id="birthDistrict" required>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="birthProvince" class="required">Tỉnh</label>
+                            <input type="text" id="birthProvince" required>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="parentName">[10] Họ tên cha/mẹ/giám hộ (đối với trẻ em dưới 6 tuổi)</label>
+                    <input type="text" id="parentName">
+                </div>
+                
+                <h4 class="section-title">[11] Địa chỉ nhận kết quả</h4>
+                <div class="form-group">
+                    <label for="addressStreet" class="required">Số nhà, đường/phố, thôn/xóm</label>
+                    <input type="text" id="addressStreet" required>
+                </div>
+                
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="addressCommune" class="required">Xã</label>
+                            <input type="text" id="addressCommune" required>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="addressDistrict" class="required">Huyện</label>
+                            <input type="text" id="addressDistrict" required>
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="addressProvince" class="required">Tỉnh</label>
+                            <input type="text" id="addressProvince" required>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            
+            <div id="part2" class="hidden">
+                <div class="form-group">
+                    <label for="bhxhCode" class="required">[13] Mã số BHXH</label>
+                    <input type="text" id="bhxhCode" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="adjustInfo">[14] Thông tin điều chỉnh (nếu có)</label>
+                    <textarea id="adjustInfo" rows="3"></textarea>
+                </div>
+                
+                <div class="row">
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="paymentAmount">[15] Mức tiền đóng</label>
+                            <input type="text" id="paymentAmount">
+                        </div>
+                    </div>
+                    <div class="col">
+                        <div class="form-group">
+                            <label for="paymentMethod">[16] Phương thức đóng</label>
+                            <select id="paymentMethod">
+                                <option value="">Chọn phương thức</option>
+                                <option value="Tháng">Tháng</option>
+                                <option value="Quý">Quý</option>
+                                <option value="6 tháng">6 tháng</option>
+                                <option value="Năm">Năm</option>
+                            </select>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="form-group">
+                    <label for="medicalFacility">[17] Nơi đăng ký khám, chữa bệnh ban đầu</label>
+                    <input type="text" id="medicalFacility">
+                </div>
+                
+                <div class="form-group">
+                    <label for="changeContent">[18] Nội dung thay đổi, yêu cầu khác</label>
+                    <textarea id="changeContent" rows="3"></textarea>
+                </div>
+                
+                <div class="form-group">
+                    <label for="attachedDocs">[19] Hồ sơ kèm theo (nếu có)</label>
+                    <textarea id="attachedDocs" rows="2"></textarea>
+                </div>
+            </div>
+        </div>
+        
+        <div id="exportSection" class="hidden">
+            <div class="button-group">
+                <button type="button" class="btn" id="resetBtn">Nhập lại</button>
+                <button type="button" class="btn btn-export" id="exportBtn">Xuất File Excel Hoàn Chỉnh</button>
+            </div>
+        </div>
+        
+        <div id="statusMessage" class="status-message hidden"></div>
+    </div>
+
+    <script>
+        // Biến lưu workbook gốc
+        let originalWorkbook = null;
+        let fileName = '';
+        
+        document.addEventListener('DOMContentLoaded', function() {
+            // Upload file Excel gốc
+            document.getElementById('uploadBtn').addEventListener('click', function() {
+                const fileInput = document.getElementById('excelFile');
+                const file = fileInput.files[0];
+                
+                if (!file) {
+                    showStatus('Vui lòng chọn file Excel', 'error');
+                    return;
+                }
+                
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    try {
+                        const data = new Uint8Array(e.target.result);
+                        originalWorkbook = XLSX.read(data, { type: 'array' });
+                        fileName = file.name.replace('.xlsx', '').replace('.xls', '');
+                        
+                        // Hiển thị thông tin file
+                        document.getElementById('fileInfo').innerHTML = `
+                            <strong>File đã upload:</strong> ${file.name}<br>
+                            <strong>Kích thước:</strong> ${(file.size / 1024).toFixed(2)} KB<br>
+                            <strong>Số sheet:</strong> ${originalWorkbook.SheetNames.length}
+                        `;
+                        document.getElementById('fileInfo').classList.remove('hidden');
+                        
+                        // Hiển thị form điền thông tin
+                        document.getElementById('formSection').classList.remove('hidden');
+                        document.getElementById('exportSection').classList.remove('hidden');
+                        
+                        showStatus('Upload file thành công! Vui lòng điền thông tin.', 'success');
+                    } catch (error) {
+                        showStatus('Lỗi khi đọc file Excel: ' + error.message, 'error');
+                    }
+                };
+                
+                reader.readAsArrayBuffer(file);
+            });
+            
+            // Toggle giữa phần I và II
+            document.getElementById('hasBhxh').addEventListener('change', function() {
+                const part1 = document.getElementById('part1');
+                const part2 = document.getElementById('part2');
+                
+                if (this.checked) {
+                    part1.classList.add('hidden');
+                    part2.classList.remove('hidden');
+                    
+                    // Bỏ required ở phần I
+                    document.querySelectorAll('#part1 input, #part1 select').forEach(field => {
+                        field.removeAttribute('required');
+                    });
+                    
+                    // Thêm required cho các trường phần II
+                    document.getElementById('bhxhCode').setAttribute('required', 'required');
+                } else {
+                    part1.classList.remove('hidden');
+                    part2.classList.add('hidden');
+                    
+                    // Thêm required lại cho phần I
+                    document.querySelectorAll('#part1 input, #part1 select').forEach(field => {
+                        if (field.id !== 'email' && field.id !== 'parentName') {
+                            field.setAttribute('required', 'required');
+                        }
+                    });
+                    
+                    // Bỏ required ở phần II
+                    document.getElementById('bhxhCode').removeAttribute('required');
+                }
+            });
+            
+            // Reset form
+            document.getElementById('resetBtn').addEventListener('click', function() {
+                if (confirm('Bạn có chắc chắn muốn nhập lại tất cả thông tin không?')) {
+                    document.getElementById('fullname').value = '';
+                    document.getElementById('gender').value = '';
+                    document.getElementById('birthdate').value = '';
+                    document.getElementById('nationality').value = 'Việt Nam';
+                    document.getElementById('ethnic').value = 'Kinh';
+                    document.getElementById('idNumber').value = '';
+                    document.getElementById('phone').value = '';
+                    document.getElementById('email').value = '';
+                    document.getElementById('birthCommune').value = '';
+                    document.getElementById('birthDistrict').value = '';
+                    document.getElementById('birthProvince').value = '';
+                    document.getElementById('parentName').value = '';
+                    document.getElementById('addressStreet').value = '';
+                    document.getElementById('addressCommune').value = '';
+                    document.getElementById('addressDistrict').value = '';
+                    document.getElementById('addressProvince').value = '';
+                    document.getElementById('bhxhCode').value = '';
+                    document.getElementById('adjustInfo').value = '';
+                    document.getElementById('paymentAmount').value = '';
+                    document.getElementById('paymentMethod').value = '';
+                    document.getElementById('medicalFacility').value = '';
+                    document.getElementById('changeContent').value = '';
+                    document.getElementById('attachedDocs').value = '';
+                    document.getElementById('hasBhxh').checked = false;
+                    
+                    // Hiển thị lại phần I
+                    document.getElementById('part1').classList.remove('hidden');
+                    document.getElementById('part2').classList.add('hidden');
+                    
+                    showStatus('Đã reset form thành công!', 'success');
+                }
+            });
+            
+            // Xuất file Excel
+            document.getElementById('exportBtn').addEventListener('click', function() {
+                if (!originalWorkbook) {
+                    showStatus('Vui lòng upload file Excel gốc trước', 'error');
+                    return;
+                }
+                
+                // Validate form
+                const hasBhxh = document.getElementById('hasBhxh').checked;
+                let isValid = true;
+                
+                if (!hasBhxh) {
+                    // Validate phần I
+                    const requiredFields = [
+                        'fullname', 'gender', 'birthdate', 'nationality', 'ethnic',
+                        'idNumber', 'phone', 'birthCommune', 'birthDistrict',
+                        'birthProvince', 'addressStreet', 'addressCommune',
+                        'addressDistrict', 'addressProvince'
+                    ];
+                    
+                    requiredFields.forEach(fieldId => {
+                        const field = document.getElementById(fieldId);
+                        if (!field.value.trim()) {
+                            isValid = false;
+                            field.style.borderColor = '#ea4335';
+                        } else {
+                            field.style.borderColor = '#ccc';
+                        }
+                    });
+                } else {
+                    // Validate phần II
+                    const bhxhCode = document.getElementById('bhxhCode');
+                    if (!bhxhCode.value.trim()) {
+                        isValid = false;
+                        bhxhCode.style.borderColor = '#ea4335';
+                    } else {
+                        bhxhCode.style.borderColor = '#ccc';
+                    }
+                }
+                
+                if (!isValid) {
+                    showStatus('Vui lòng điền đầy đủ các thông tin bắt buộc', 'error');
+                    return;
+                }
+                
+                // Lấy dữ liệu từ form
+                const formData = getFormData();
+                
+                // Tạo workbook mới từ workbook gốc
+                const newWorkbook = XLSX.utils.book_new();
+                
+                // Xử lý từng sheet
+                originalWorkbook.SheetNames.forEach(sheetName => {
+                    let worksheet = XLSX.utils.sheet_to_json(
+                        originalWorkbook.Sheets[sheetName], 
+                        { header: 1, defval: '' }
+                    );
+                    
+                    // Điền dữ liệu vào sheet
+                    worksheet = fillDataIntoSheet(worksheet, sheetName, formData);
+                    
+                    // Chuyển đổi thành sheet mới
+                    const newWorksheet = XLSX.utils.aoa_to_sheet(worksheet);
+                    
+                    // Thêm sheet vào workbook mới
+                    XLSX.utils.book_append_sheet(newWorkbook, newWorksheet, sheetName);
+                });
+                
+                // Xuất file
+                const today = new Date();
+                const dateStr = `${today.getDate()}-${today.getMonth() + 1}-${today.getFullYear()}`;
+                const exportName = `${fileName}_hoanthanh_${dateStr}.xlsx`;
+                
+                XLSX.writeFile(newWorkbook, exportName);
+                
+                showStatus('Xuất file thành công: ' + exportName, 'success');
+            });
+        });
+        
+        function getFormData() {
+            const hasBhxh = document.getElementById('hasBhxh').checked;
+            
+            if (!hasBhxh) {
+                return {
+                    hasBhxh: false,
+                    fullname: document.getElementById('fullname').value.toUpperCase(),
+                    gender: document.getElementById('gender').value,
+                    birthdate: formatDate(document.getElementById('birthdate').value),
+                    nationality: document.getElementById('nationality').value,
+                    ethnic: document.getElementById('ethnic').value,
+                    idNumber: document.getElementById('idNumber').value,
+                    phone: document.getElementById('phone').value,
+                    email: document.getElementById('email').value,
+                    birthCommune: document.getElementById('birthCommune').value,
+                    birthDistrict: document.getElementById('birthDistrict').value,
+                    birthProvince: document.getElementById('birthProvince').value,
+                    parentName: document.getElementById('parentName').value,
+                    addressStreet: document.getElementById('addressStreet').value,
+                    addressCommune: document.getElementById('addressCommune').value,
+                    addressDistrict: document.getElementById('addressDistrict').value,
+                    addressProvince: document.getElementById('addressProvince').value
+                };
+            } else {
+                return {
+                    hasBhxh: true,
+                    bhxhCode: document.getElementById('bhxhCode').value,
+                    adjustInfo: document.getElementById('adjustInfo').value,
+                    paymentAmount: document.getElementById('paymentAmount').value,
+                    paymentMethod: document.getElementById('paymentMethod').value,
+                    medicalFacility: document.getElementById('medicalFacility').value,
+                    changeContent: document.getElementById('changeContent').value,
+                    attachedDocs: document.getElementById('attachedDocs').value
+                };
+            }
+        }
+        
+        function fillDataIntoSheet(worksheet, sheetName, formData) {
+            // Sheet1: Tờ khai chính
+            if (sheetName === 'Sheet1' || sheetName === 'Sheet1') {
+                if (!formData.hasBhxh) {
+                    // Điền phần I
+                    // Tìm vị trí các trường và điền dữ liệu
+                    // [01] Họ và tên - thường ở dòng 7, cột B
+                    worksheet[7][1] = formData.fullname;
+                    // [02] Giới tính - dòng 7, cột K
+                    worksheet[7][10] = formData.gender;
+                    // [03] Ngày sinh - dòng 8, cột B
+                    worksheet[8][1] = formData.birthdate;
+                    // [04] Quốc tịch - dòng 8, cột K
+                    worksheet[8][10] = formData.nationality;
+                    // [05] Dân tộc - dòng 9, cột B
+                    worksheet[9][1] = formData.ethnic;
+                    // [06] Số CMND - dòng 9, cột H
+                    worksheet[9][7] = formData.idNumber;
+                    // [07] Điện thoại - dòng 10, cột B
+                    worksheet[10][1] = formData.phone;
+                    // [08] Email - dòng 10, cột H
+                    worksheet[10][7] = formData.email;
+                    // [09.1] Xã - dòng 11, cột B
+                    worksheet[11][1] = formData.birthCommune;
+                    // [09.2] Huyện - dòng 12, cột B
+                    worksheet[12][1] = formData.birthDistrict;
+                    // [09.3] Tỉnh - dòng 12, cột H
+                    worksheet[12][7] = formData.birthProvince;
+                    // [10] Họ tên cha/mẹ - dòng 13, cột B
+                    worksheet[13][1] = formData.parentName;
+                    // [11.1] Địa chỉ - dòng 14, cột B
+                    worksheet[14][1] = formData.addressStreet;
+                    // [11.2] Xã - dòng 15, cột B
+                    worksheet[15][1] = formData.addressCommune;
+                    // [11.3] Huyện - dòng 15, cột H
+                    worksheet[15][7] = formData.addressDistrict;
+                    // [11.4] Tỉnh - dòng 16, cột B
+                    worksheet[16][1] = formData.addressProvince;
+                } else {
+                    // Điền phần II
+                    // [13] Mã số BHXH - dòng 18, cột B
+                    worksheet[18][1] = formData.bhxhCode;
+                    // [15] Mức tiền đóng - dòng 24, cột B
+                    worksheet[24][1] = formData.paymentAmount;
+                    // [16] Phương thức đóng - dòng 24, cột K
+                    worksheet[24][10] = formData.paymentMethod;
+                    // [17] Nơi đăng ký KCB - dòng 25, cột B
+                    worksheet[25][1] = formData.medicalFacility;
+                    // [18] Nội dung thay đổi - dòng 26, cột B
+                    worksheet[26][1] = formData.changeContent;
+                    // [19] Hồ sơ kèm theo - dòng 27, cột B
+                    worksheet[27][1] = formData.attachedDocs;
+                }
+            }
+            
+            // Sheet2: Phụ lục hộ gia đình (nếu cần điền sau)
+            
+            return worksheet;
+        }
+        
+        function formatDate(dateString) {
+            if (!dateString) return '';
+            const date = new Date(dateString);
+            return `${date.getDate()}/${date.getMonth() + 1}/${date.getFullYear()}`;
+        }
+        
+        function showStatus(message, type) {
+            const statusDiv = document.getElementById('statusMessage');
+            statusDiv.textContent = message;
+            statusDiv.className = `status-message ${type}`;
+            statusDiv.classList.remove('hidden');
+            
+            setTimeout(() => {
+                statusDiv.classList.add('hidden');
+            }, 5000);
+        }
+    </script>
+</body>
+</html>

@@ -255,7 +255,7 @@
     </div>
 <div id="statisticsTab" class="tab-content">
     <div class="admin-header">
-        <h2 class="modal-title">Quản lý Thống kê</h2>
+        <h2 class="modal-title">Quản lý Thống kê hệ thống</h2>
         <div class="admin-actions">
             <button class="btn btn-success" onclick="statisticsManager.updateStatistics(true)">
                 <i class="fas fa-sync-alt"></i> Cập nhật ngay
@@ -265,242 +265,166 @@
             </button>
         </div>
     </div>
-    
+
     <div class="stats-controls">
-        <!-- Phần 1: Live Preview -->
+
+        <!-- PHẦN 1: LIVE PREVIEW -->
         <div class="control-group">
-            <h3><i class="fas fa-tv"></i> Xem trước trực tiếp</h3>
+            <h3><i class="fas fa-tv"></i> Xem trước thống kê hiển thị</h3>
             <div class="live-preview" id="livePreview">
                 <div class="loading-spinner"></div>
             </div>
         </div>
-        
-        <!-- Phần 2: Cài đặt cơ bản -->
+
+        <!-- PHẦN 2: CÀI ĐẶT CƠ BẢN -->
         <div class="control-group">
             <h3><i class="fas fa-sliders-h"></i> Cài đặt cơ bản</h3>
-            
+
             <div class="form-row">
-                <div class="form-group">
-                    <label class="form-label">Tổng số xe</label>
-                    <input type="number" id="totalCars" class="form-input" min="1" max="50" 
-                           onchange="statisticsManager.updateConfigField('total_cars', this.value)">
-                </div>
                 <div class="form-group">
                     <label class="form-label">Số online cơ bản</label>
-                    <input type="number" id="baseOnline" class="form-input" min="1" max="100"
+                    <input type="number" id="baseOnline" class="form-input" min="1" max="300"
                            onchange="statisticsManager.updateConfigField('base_online', this.value)">
                 </div>
+
                 <div class="form-group">
-                    <label class="form-label">Booking cơ bản/ngày</label>
-                    <input type="number" id="baseBookings" class="form-input" min="0" max="50"
-                           onchange="statisticsManager.updateConfigField('base_bookings', this.value)">
+                    <label class="form-label">Hợp đồng kế toán đang quản lý</label>
+                    <input type="number" id="baseContracts" class="form-input" min="0" max="500"
+                           onchange="statisticsManager.updateConfigField('base_contracts', this.value)">
+                </div>
+
+                <div class="form-group">
+                    <label class="form-label">Hồ sơ GPKD trung bình / ngày</label>
+                    <input type="number" id="baseGPKD" class="form-input" min="0" max="50"
+                           onchange="statisticsManager.updateConfigField('base_gpkd', this.value)">
                 </div>
             </div>
-            
+
             <div class="form-row">
                 <div class="form-group">
-                    <label class="form-label">Hệ số cuối tuần</label>
+                    <label class="form-label">Hệ số cao điểm (cuối tuần)</label>
                     <div class="range-container">
-                        <input type="range" id="weekendBoost" class="form-range" min="100" max="200" step="5"
+                        <input type="range" id="weekendBoost" class="form-range"
+                               min="100" max="200" step="5"
                                onchange="statisticsManager.updateConfigField('weekend_boost', this.value/100)">
                         <span id="weekendBoostValue">130%</span>
                     </div>
                 </div>
+
                 <div class="form-group">
                     <label class="form-label">
-                        <input type="checkbox" id="autoUpdate" 
+                        <input type="checkbox" id="autoUpdate"
                                onchange="statisticsManager.updateConfigField('auto_update', this.checked)">
                         Tự động cập nhật (30s)
                     </label>
                 </div>
             </div>
         </div>
-        
-        <!-- Phần 3: Hệ số theo giờ -->
-        <div class="control-group">
-            <h3><i class="fas fa-clock"></i> Hệ số theo giờ</h3>
-            
-            <div class="multiplier-grid">
-                <div class="multiplier-item">
-                    <label>00:00 - 06:00 (Đêm khuya)</label>
-                    <div class="range-container">
-                        <input type="range" id="multNight" class="multiplier-range" data-key="00-06" 
-                               min="5" max="50" step="5"
-                               onchange="statisticsManager.updateMultiplier('00-06', this.value/100)">
-                        <span id="multNightValue">20%</span>
-                    </div>
-                </div>
-                
-                <div class="multiplier-item">
-                    <label>06:00 - 09:00 (Sáng sớm)</label>
-                    <div class="range-container">
-                        <input type="range" id="multMorning" class="multiplier-range" data-key="06-09" 
-                               min="30" max="80" step="5"
-                               onchange="statisticsManager.updateMultiplier('06-09', this.value/100)">
-                        <span id="multMorningValue">60%</span>
-                    </div>
-                </div>
-                
-                <div class="multiplier-item">
-                    <label>09:00 - 12:00 (Sáng)</label>
-                    <div class="range-container">
-                        <input type="range" id="multLateMorning" class="multiplier-range" data-key="09-12" 
-                               min="60" max="120" step="5"
-                               onchange="statisticsManager.updateMultiplier('09-12', this.value/100)">
-                        <span id="multLateMorningValue">90%</span>
-                    </div>
-                </div>
-                
-                <div class="multiplier-item">
-                    <label>12:00 - 14:00 (Trưa)</label>
-                    <div class="range-container">
-                        <input type="range" id="multNoon" class="multiplier-range" data-key="12-14" 
-                               min="80" max="120" step="5"
-                               onchange="statisticsManager.updateMultiplier('12-14', this.value/100)">
-                        <span id="multNoonValue">100%</span>
-                    </div>
-                </div>
-                
-                <div class="multiplier-item">
-                    <label>14:00 - 18:00 (Chiều)</label>
-                    <div class="range-container">
-                        <input type="range" id="multAfternoon" class="multiplier-range" data-key="14-18" 
-                               min="100" max="150" step="5"
-                               onchange="statisticsManager.updateMultiplier('14-18', this.value/100)">
-                        <span id="multAfternoonValue">120%</span>
-                    </div>
-                </div>
-                
-                <div class="multiplier-item">
-                    <label>18:00 - 21:00 (Tối - Cao điểm)</label>
-                    <div class="range-container">
-                        <input type="range" id="multEvening" class="multiplier-range" data-key="18-21" 
-                               min="120" max="200" step="5"
-                               onchange="statisticsManager.updateMultiplier('18-21', this.value/100)">
-                        <span id="multEveningValue">150%</span>
-                    </div>
-                </div>
-                
-                <div class="multiplier-item">
-                    <label>21:00 - 24:00 (Tối muộn)</label>
-                    <div class="range-container">
-                        <input type="range" id="multLateEvening" class="multiplier-range" data-key="21-24" 
-                               min="50" max="120" step="5"
-                               onchange="statisticsManager.updateMultiplier('21-24', this.value/100)">
-                        <span id="multLateEveningValue">80%</span>
-                    </div>
-                </div>
-            </div>
-        </div>
-        
-        <!-- Phần 4: Manual Override -->
+
+        <!-- PHẦN 3: ĐIỀU CHỈNH THỦ CÔNG -->
         <div class="control-group">
             <h3><i class="fas fa-edit"></i> Điều chỉnh thủ công</h3>
-            <p class="form-note">Ghi đè giá trị tự động (để trống để dùng tự động)</p>
-            
+            <p class="form-note">Chỉ dùng khi cần hiển thị số liệu đặc biệt</p>
+
             <div class="override-grid">
                 <div class="override-item">
-                    <label>👤 Số người online</label>
+                    <label>👤 Người online</label>
                     <div class="override-controls">
-                        <input type="number" id="overrideOnline" class="form-input-sm" 
-                               min="0" max="200" placeholder="Tự động">
-                        <button class="btn-override" onclick="statisticsManager.applyOverride('online')">
+                        <input type="number" id="overrideOnline" class="form-input-sm" placeholder="Tự động">
+                        <button class="btn-override"
+                                onclick="statisticsManager.applyOverride('online')">
                             Áp dụng
                         </button>
                     </div>
                 </div>
-                
+
                 <div class="override-item">
-                    <label>📅 Booking hôm nay</label>
+                    <label>📑 Hợp đồng kế toán</label>
                     <div class="override-controls">
-                        <input type="number" id="overrideBookings" class="form-input-sm" 
-                               min="0" max="50" placeholder="Tự động">
-                        <button class="btn-override" onclick="statisticsManager.applyOverride('bookings')">
+                        <input type="number" id="overrideContracts" class="form-input-sm" placeholder="Tự động">
+                        <button class="btn-override"
+                                onclick="statisticsManager.applyOverride('contracts')">
                             Áp dụng
                         </button>
                     </div>
                 </div>
-                
+
                 <div class="override-item">
-                    <label>🚗 Xe trống</label>
+                    <label>🏢 GPKD đang xử lý</label>
                     <div class="override-controls">
-                        <input type="number" id="overrideCars" class="form-input-sm" 
-                               min="0" max="50" placeholder="Tự động">
-                        <button class="btn-override" onclick="statisticsManager.applyOverride('cars')">
+                        <input type="number" id="overrideGPKDProcessing" class="form-input-sm" placeholder="Tự động">
+                        <button class="btn-override"
+                                onclick="statisticsManager.applyOverride('gpkd_processing')">
+                            Áp dụng
+                        </button>
+                    </div>
+                </div>
+
+                <div class="override-item">
+                    <label>🧾 Thuế đang xử lý</label>
+                    <div class="override-controls">
+                        <input type="number" id="overrideTaxProcessing" class="form-input-sm" placeholder="Tự động">
+                        <button class="btn-override"
+                                onclick="statisticsManager.applyOverride('tax_processing')">
                             Áp dụng
                         </button>
                     </div>
                 </div>
             </div>
-            
-            <div style="margin-top: 15px; display: flex; gap: 10px;">
+
+            <div style="margin-top:15px;display:flex;gap:10px">
                 <button class="btn btn-secondary" onclick="statisticsManager.clearOverrides()">
                     <i class="fas fa-undo"></i> Xóa ghi đè
                 </button>
-                <button class="btn btn-info" onclick="statisticsManager.calculatePreview()">
-                    <i class="fas fa-calculator"></i> Tính toán thử
-                </button>
             </div>
         </div>
-        
-        <!-- Phần 5: Dữ liệu thực -->
+
+        <!-- PHẦN 4: DỮ LIỆU THỰC -->
         <div class="control-group">
-            <h3><i class="fas fa-database"></i> Dữ liệu thực</h3>
-            
+            <h3><i class="fas fa-database"></i> Dữ liệu thực từ hệ thống</h3>
+
             <div class="real-data-grid">
                 <div class="real-data-item">
-                    <div class="real-data-label">
-                        <i class="fas fa-users"></i> User online thực
-                    </div>
+                    <div class="real-data-label"><i class="fas fa-users"></i> Online thực</div>
                     <div class="real-data-value" id="realOnlineCount">0</div>
-                    <div class="real-data-sub">(active trong 5 phút)</div>
+                    <div class="real-data-sub">(5 phút gần nhất)</div>
                 </div>
-                
+
                 <div class="real-data-item">
-                    <div class="real-data-label">
-                        <i class="fas fa-calendar-check"></i> Booking thực hôm nay
-                    </div>
-                    <div class="real-data-value" id="realBookingsCount">0</div>
-                    <div class="real-data-sub">(confirmed)</div>
+                    <div class="real-data-label"><i class="fas fa-file-contract"></i> Hợp đồng kế toán</div>
+                    <div class="real-data-value" id="realContractsCount">0</div>
+                    <div class="real-data-sub">(đang quản lý)</div>
                 </div>
-                
+
                 <div class="real-data-item">
-                    <div class="real-data-label">
-                        <i class="fas fa-history"></i> Tổng session
-                    </div>
-                    <div class="real-data-value" id="totalSessionsCount">0</div>
-                    <div class="real-data-sub">(all time)</div>
+                    <div class="real-data-label"><i class="fas fa-building"></i> GPKD đã xử lý</div>
+                    <div class="real-data-value" id="realGPKDDone">0</div>
                 </div>
-                
+
                 <div class="real-data-item">
-                    <div class="real-data-label">
-                        <i class="fas fa-chart-line"></i> Tổng booking
-                    </div>
-                    <div class="real-data-value" id="totalBookingsCount">0</div>
-                    <div class="real-data-sub">(all time)</div>
+                    <div class="real-data-label"><i class="fas fa-hourglass-half"></i> Thuế đang xử lý</div>
+                    <div class="real-data-value" id="realTaxProcessing">0</div>
                 </div>
             </div>
-            
-            <div style="margin-top: 15px; display: flex; gap: 10px;">
+
+            <div style="margin-top:15px;display:flex;gap:10px">
                 <button class="btn btn-primary" onclick="statisticsManager.refreshRealData()">
-                    <i class="fas fa-redo"></i> Làm mới dữ liệu
-                </button>
-                <button class="btn btn-danger" onclick="statisticsManager.clearOldSessions()">
-                    <i class="fas fa-trash"></i> Xóa session cũ
+                    <i class="fas fa-sync"></i> Làm mới
                 </button>
             </div>
         </div>
-        
-        <!-- Phần 6: Logs -->
+
+        <!-- PHẦN 5: LOG -->
         <div class="control-group">
             <h3><i class="fas fa-history"></i> Lịch sử thay đổi</h3>
-            
             <div class="logs-container" id="logsContainer">
                 <div class="loading-spinner"></div>
             </div>
         </div>
+
     </div>
 </div>
+
 <!-- Thêm tab content cho Telegram (đặt trước phần Status Bar) -->
 <div id="telegramTab" class="tab-content">
     <div class="admin-header">
