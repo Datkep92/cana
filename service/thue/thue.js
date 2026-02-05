@@ -38,10 +38,20 @@ document.addEventListener("DOMContentLoaded", function () {
 
                 <!-- NỘI DUNG BÊN CẠNH ẢNH -->
                 <div class="hero-text">
-                    <h2>Vì sao HKD nhỏ lẻ, tạp hóa, cửa hàng nên chọn KHtax?</h2>
+                    <h2>Vì sao HKD/ Doanh nghiệp nên thuê Kế Toán dịch vụ thay vì kế toán toàn thời gian?</h2>
 
 <p>
-    <strong>KHtax</strong> thấu hiểu đặc thù kinh doanh của các Hộ kinh doanh cá thể, cửa hàng tạp hóa, nhà thuốc, tiệm ăn, quán cafe... tại <strong>Phan Rang - Ninh Thuận, Khánh Hòa</strong>. Chúng tôi mang đến giải pháp thuế-kế toán <strong>tối ưu chi phí, dễ hiểu và phù hợp</strong> với quy mô kinh doanh nhỏ.
+    <strong>Chúng tôi</strong> thấu hiểu sâu sắc nỗi lo của các Hộ kinh doanh cá thể - Doanh nghiệp cửa hàng tạp hóa, nhà thuốc, tiệm ăn, quán cafe... tại <strong>Phan Rang - Ninh Thuận, Khánh Hòa</strong> khi:
+    <br><br>
+    ⚠️ <strong>Mỗi lần chậm nộp tờ khai thuế</strong> là một khoản phạt từ <strong>2-5 triệu đồng</strong>
+    <br>
+    ⚠️ <strong>Kê khai sai, thiếu sót</strong> có thể dẫn đến <strong>truy thu thuế + phạt 20%</strong> số tiền thiếu
+    <br>
+    ⚠️ <strong>Không xuất hóa đơn đầy đủ</strong> khi bán hàng là vi phạm nghiêm trọng, phạt từ <strong>10-20 triệu đồng</strong>
+    <br>
+    ⚠️ <strong>Đóng thuế không đúng hạn</strong> phải chịu phạt <strong>0.03%/ngày</strong> trên số tiền nộp chậm
+    <br><br>
+    Áp lực từ <strong>phạt thuế, truy thu, thanh tra đột xuất</strong> đang đè nặng lên mọi chủ kinh doanh nhỏ. Chúng tôi mang đến giải pháp giúp bạn <strong>TRÁNH PHẠT - ĐÚNG HẸN - AN TÂM</strong> với chi phí chỉ bằng <strong>1/10</strong> so với thuê kế toán toàn thời gian.
 </p>
 
 <div class="business-benefits">
@@ -190,61 +200,8 @@ document.addEventListener("DOMContentLoaded", function () {
 </div>
 
                     
-                <!-- QUY TRÌNH LÀM VIỆC -->
-                <div class="process-section">
-                    <h2 class="section-title">Quy Trình Làm Việc</h2>
-                    <div class="process-steps">
-                        <div class="process-step">
-                            <div class="step-number">1</div>
-                            <h3>Tư vấn ban đầu</h3>
-                            <p>Khảo sát nhu cầu, tư vấn dịch vụ phù hợp với doanh nghiệp</p>
-                        </div>
-                        <div class="process-step">
-                            <div class="step-number">2</div>
-                            <h3>Ký hợp đồng</h3>
-                            <p>Thỏa thuận phạm vi công việc, chi phí, thời hạn rõ ràng</p>
-                        </div>
-                        <div class="process-step">
-                            <div class="step-number">3</div>
-                            <h3>Tiếp nhận chứng từ</h3>
-                            <p>Hướng dẫn cách thức chuyển chứng từ hàng tháng thuận tiện</p>
-                        </div>
-                        <div class="process-step">
-                            <div class="step-number">4</div>
-                            <h3>Xử lý kế toán</h3>
-                            <p>Ghi sổ, lập báo cáo thuế, báo cáo tài chính chuyên nghiệp</p>
-                        </div>
-                        <div class="process-step">
-                            <div class="step-number">5</div>
-                            <h3>Báo cáo kết quả</h3>
-                            <p>Gửi báo cáo định kỳ và tư vấn chiến lược cho doanh nghiệp</p>
-                        </div>
-                        <div class="process-step">
-                            <div class="step-number">6</div>
-                            <h3>Hỗ trợ sau dịch vụ</h3>
-                            <p>Giải đáp thắc mắc, tư vấn phát triển bền vững</p>
-                        </div>
-                    </div>
-                </div>
+               
 
-                <!-- KHU VỰC PHỤC VỤ & CTA -->
-                <div class="service-footer">
-                    <div class="service-area">
-                        <h3><i class="fas fa-map-marker-alt"></i> Khu Vực Phục Vụ</h3>
-                        <p><strong>Phan Rang - Tháp Chàm (Ninh Thuận)</strong>, <strong>Nha Trang - Cam Ranh (Khánh Hòa)</strong> và toàn khu vực Miền Trung - Tây Nguyên.</p>
-                    </div>
-
-                    <div class="final-cta">
-                        <h3>Để lại thông tin để được tư vấn miễn phí</h3>
-                        <p>Chuyên gia KHtax sẽ liên hệ tư vấn chi tiết trong 15 phút</p>
-                        <a href="javascript:void(0)" onclick="if(window.bookingSystem) window.bookingSystem.scrollToBooking();" class="btn btn-primary">
-                            <i class="fas fa-calendar-check"></i> Đăng Ký Tư Vấn Ngay
-                        </a>
-                    </div>
-                </div>
-
-            </div>
-        </article>
-    </section>
+               
     `;
 });
